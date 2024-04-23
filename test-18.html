@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Grid with Height 100vh</title>
+<title>Terminal Countdown</title>
 <style>
     body, html {
         margin: 2px;
@@ -79,6 +79,13 @@
         padding: 0;
         padding-top: 2.8px;
         text-align: right;
+    }
+    #sentence{
+        color: red;
+        font-weight:bold;
+    }
+    #stats td{
+    padding-right: 15px;
     }
 </style>
 </head>
@@ -228,6 +235,51 @@
     <div class="grid-item" id="lifegrid"></div>
     <div class="grid-item">
         Hansi Zhu, born 22 October 2003.
+        <br>
+        <br>
+            <table id="stats">
+                <tr>
+                  <td>Sex</td>
+                  <td>Female</td>
+                </tr>
+                <tr>
+                  <td>Ethnicity</td>
+                  <td>Chinese</td>
+                </tr>
+                <tr>
+                  <td>Nationality</td>
+                  <td>United States</td>
+                </tr>
+                <tr>
+                  <td>Education</td>
+                  <td>Bachelors Degree</td>
+                </tr>
+                <tr>
+                  <td>Heart disease</td>
+                  <td>None</td>
+                </tr>
+                <tr>
+                  <td>Marital status</td>
+                  <td>Single</td>
+                </tr>
+                <tr>
+                  <td>Prescriptions</td>
+                  <td>None</td>
+                </tr>
+                <tr>
+                  <td>Supplements</td>
+                  <td>500mg iron/daily</td>
+                </tr>
+                <tr>
+                  <td>Steps per day</td>
+                  <td>8,341</td>
+                </tr>
+                <tr>
+                  <td>Resting heart rate</td>
+                  <td>51 bpm</td>
+                </tr>
+              </table>
+        <br>
         <div id="sentence"></div>
     </div>
 </div>
