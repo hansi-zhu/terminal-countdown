@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grid with Columns</title>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+    }
+    .grid-container {
+        display: grid;
+        grid-template-columns: auto auto;
+        height: 100vh;
+    }
+    .grid-item {
+        border: 1px solid black;
+        padding: 10px;
+        overflow: hidden;
+    }
+    .grid-item:first-child {
+        border-right: none;
+    }
+    .row {
+        margin: 0;
+        padding: 0;
+        white-space: nowrap;
+    }
+    .square {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border: 0.5px solid black;
+        background-color: white;
+    }
+    .dark-gray {
+        background-color: darkgray;
+    }
+</style>
+</head>
+<body>
+
+<div class="grid-container">
+    <div class="grid-item">
+        <script>
+            // Function to calculate the number of days since October 22 of the previous year
+            function daysSincePreviousOctober22() {
+                const today = new Date();
+                const previousOctober22 = new Date(today.getFullYear() - 1, 9, 22); // Month is 0-indexed
+                const diffTime = today - previousOctober22;
+                const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                return diffDays;
+            }
+
+            // Function to generate grid
+            function generateGrid() {
+                const rows = 80;
+                const columns = 52;
+                const container = document.createElement('div');
+                container.classList.add('container');
+
+                const yearsSince2003 = Math.floor((new Date() - new Date(2003, 9, 22)) / (1000 * 60 * 60 * 24 * 365));
+                const daysSincePrevOct22 = daysSincePreviousOctober22();
+
+                const totalSquares = (yearsSince2003 * columns) + Math.floor(daysSincePrevOct22 / 7);
+
+                // Loop through rows
+                for (let i = 0; i < rows; i++) {
+                    const row = document.createElement('div');
+                    row.classList.add('row');
+
+                    // Loop through columns
+                    for (let j = 0; j < columns; j++) {
+                        const square = document.createElement('div');
+                        square.classList.add('square');
+                        // Add dark gray background to the specified number of squares
+                        if (i * columns + j < totalSquares) {
+                            square.classList.add('dark-gray');
+                        }
+                        row.appendChild(square);
+                    }
+
+                    container.appendChild(row);
+                }
+
+                document.body.appendChild(container);
+            }
+
+            // Call the function to generate grid
+            generateGrid();
+        </script>
+    </div>
+    <div class="grid-item">This is my life.</div>
+</div>
+
+</body>
+</html>

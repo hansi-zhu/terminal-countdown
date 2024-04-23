@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grid with Columns</title>
+<style>
+    body, html {
+        margin: 20px;
+        padding: 0;
+        font-family:monospace;
+    }
+    .grid-container {
+        display: grid;
+        grid-template-columns: 2.5vw 45vw auto;
+        height: 100vh;        
+        border:none;
+
+    }
+    .grid-item {
+        border: none;
+        padding: 10px;
+        overflow: hidden;
+    }
+    .grid-item:first-child {
+        border-right: none;
+    }
+    .row {
+        margin: 0;
+        padding: 0;
+        white-space: nowrap;
+        height:9px;
+    }
+    .square {
+        display: inline-block;
+        width: 9px;
+        height: 9px;
+        border: 0.5px solid black;
+        background-color: white;
+    }
+    .square:hover{
+        background-color:red;
+    }
+    .dark-gray {
+        background-color: darkgray;
+    }
+    #years{
+        font-size:7.814px;
+        padding:0;
+        padding-top:12px;
+    }
+    #weeks{
+        font-size:7.814px;
+        transform: rotate(-0.25turn);
+        padding-top:90px;
+        width:50px;
+        height:400px;
+    }
+</style>
+</head>
+<body>
+<div id="weeks">
+    Week 1
+    Week 2
+    Week 3
+    Week 4
+    Week 5
+    Week 6
+    Week 7
+    Week 8
+    Week 9
+    Week 10
+    Week 11
+    Week 12
+    Week 13
+    Week 14
+    Week 15
+    Week 16
+    Week 17
+    Week 18
+    Week 19
+    Week 20
+    Week 21
+    Week 22
+    Week 23
+    Week 24
+    Week 25
+    Week 26
+    Week 27
+    Week 28
+    Week 29
+    Week 30
+    Week 31
+    Week 32
+    Week 33
+    Week 34
+    Week 35
+    Week 36
+    Week 37
+    Week 38
+    Week 39
+    Week 40
+    Week 41
+    Week 42
+    Week 43
+    Week 44
+    Week 45
+    Week 46
+    Week 47
+    Week 48
+    Week 49
+    Week 50
+    Week 51
+    Week 52
+    Week 53
+    Week 54
+    Week 55
+    Week 56
+    Week 57
+    Week 58
+    Week 59
+    Week 60
+    Week 61
+    Week 62
+    Week 63
+    Week 64
+    Week 65
+    Week 66
+    Week 67
+    Week 68
+    Week 69
+    Week 70
+    Week 71
+    Week 72
+    Week 73
+    Week 74
+    Week 75
+    Week 76
+    Week 77
+    Week 78
+    Week 79
+    Week 80
+</div>
+<div class="grid-container" >
+    <div class="grid-item"id="years">
+        Year 01
+        Year 02
+        Year 03
+        Year 04
+        Year 05
+        Year 06
+        Year 07
+        Year 08
+        Year 09
+        Year 10
+        Year 11
+        Year 12
+        Year 13
+        Year 14
+        Year 15
+        Year 16
+        Year 17
+        Year 18
+        Year 19
+        Year 20
+        Year 21
+        Year 22
+        Year 23
+        Year 24
+        Year 25
+        Year 26
+        Year 27
+        Year 28
+        Year 29
+        Year 30
+        Year 31
+        Year 32
+        Year 33
+        Year 34
+        Year 35
+        Year 36
+        Year 37
+        Year 38
+        Year 39
+        Year 40
+        Year 41
+        Year 42
+        Year 43
+        Year 44
+        Year 45
+        Year 46
+        Year 47
+        Year 48
+        Year 49
+        Year 50
+        Year 51
+        Year 52
+        Year 53
+        Year 54
+        Year 55
+        Year 56
+        Year 57
+        Year 58
+        Year 59
+        Year 60
+        Year 61
+        Year 62
+        Year 63
+        Year 64
+        Year 65
+        Year 66
+        Year 67
+        Year 68
+        Year 69
+        Year 70
+        Year 71
+        Year 72
+        Year 73
+        Year 74
+        Year 75
+        Year 76
+        Year 77
+        Year 78
+        Year 79
+        Year 80
+    </div>
+    <div class="grid-item" id="gridItem1"></div>
+    <div class="grid-item">Hansi Zhu, born 22 October 2003.</div>
+</div>
+
+<script>
+    // Function to calculate the number of days since October 22 of the previous year
+    function daysSincePreviousOctober22() {
+        const today = new Date();
+        const previousOctober22 = new Date(today.getFullYear() - 1, 9, 22); // Month is 0-indexed
+        const diffTime = today - previousOctober22;
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        return diffDays;
+    }
+
+    // Function to generate grid
+    function generateGrid() {
+        const rows = 80;
+        const columns = 52;
+        const grid = document.createElement('div');
+        grid.classList.add('grid');
+
+        const container = document.createElement('div');
+        container.classList.add('container');
+
+        const yearsSince2003 = Math.floor((new Date() - new Date(2003, 9, 22)) / (1000 * 60 * 60 * 24 * 365));
+        const daysSincePrevOct22 = daysSincePreviousOctober22();
+
+        const totalSquares = (yearsSince2003 * columns) + Math.floor(daysSincePrevOct22 / 7);
+
+        // Loop through rows
+        for (let i = 0; i < rows; i++) {
+            const row = document.createElement('div');
+            row.classList.add('row');
+
+            // Loop through columns
+            for (let j = 0; j < columns; j++) {
+                const square = document.createElement('div');
+                square.classList.add('square');
+                // Add dark gray background to the specified number of squares
+                if (i * columns + j < totalSquares) {
+                    square.classList.add('dark-gray');
+                }
+                row.appendChild(square);
+            }
+
+            container.appendChild(row);
+        }
+
+        grid.appendChild(container);
+        document.getElementById('gridItem1').appendChild(grid);
+    }
+
+    // Call the function to generate grid
+    generateGrid();
+</script>
+
+</body>
+</html>

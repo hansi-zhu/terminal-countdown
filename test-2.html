@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        body{
+            font-family: sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <h1>Your birthday is <span class="month"></span>/<span class="date"></span>/<span class="year"></span>.</h1>
+    <h1><span class="daysLeft"></span>/<span class="predictedLifespan"></span> days left.</h1>
+
+    <script>
+        var currentTime = new Date();
+        var currentMonth = currentTime.getMonth();
+        var currentDate = currentTime.getDate();
+        var currentYear = currentTime.getFullYear();
+        const months = ["January", "February", "March", "April"];
+
+        setTimeout(()=> {
+            $(".month").html(months[currentMonth]);
+            $(".date").html(currentDate);
+            $(".year").html(currentYear);
+        }, 0);
+
+        function myClock() {
+            var daysLeft = currentTime.getMinutes();
+            var predictedLifespan = currentTime.getMinutes();
+            $(".daysLeft").html(daysLeft);
+            $(".predictedLifespan").html(predictedLifespan);
+            };
+        myClock();
+        setInterval(myClock, 1000);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>clawk</title>
+<style>
+    body {
+        margin: 20px;
+        padding: 0;
+    }
+    .row {
+        margin: 0;
+        padding: 0;
+        white-space: nowrap;
+        height:8px;
+        width:416px;
+    }
+    .square {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border: 1px solid white;
+        background-color: lightgray;
+    }
+</style>
+</head>
+<body>
+<script>
+    // Function to generate grid
+    function generateGrid() {
+        const rows = 80;
+        const columns = 52;
+        const container = document.createElement('div');
+        container.classList.add('container');
+
+        // Loop through rows
+        for (let i = 0; i < rows; i++) {
+            const row = document.createElement('div');
+            row.classList.add('row');
+
+            // Loop through columns
+            for (let j = 0; j < columns; j++) {
+                const square = document.createElement('div');
+                square.classList.add('square');
+                row.appendChild(square);
+            }
+
+            container.appendChild(row);
+        }
+
+        document.body.appendChild(container);
+    }
+
+    // Call the function to generate grid
+    generateGrid();
+</script>
+</body>
+</html>

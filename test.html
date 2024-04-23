@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            font-family: monospace;
+            font-size:12px;
+        }
+        input{
+            font-family: monospace;
+            font-size:22px;
+        }
+        button{
+            font-family: monospace;
+            font-size:12px;
+        }
+        .data{
+            display: grid;
+            grid-template-columns: auto auto auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="data">
+        <div class="input">
+        <p>Please enter your birthday.</p>
+        <input type="date" name="bday" id="datePicker" onblur="myFunction()">
+        </div>
+        <div class="input">
+        <p>Sex</p>
+        <form action="/action_page.php">
+            <input type="radio" id="female" name="sex" value="female">
+            <label for="html">Female</label><br>
+            <input type="radio" id="male" name="sex" value="male">
+            <label for="css">Male</label><br>
+            </form> 
+        </div>
+        <div class="data">
+            <form action="/action_page.php">
+                <label for="cars">Country:</label>
+                <select name="cars" id="cars">
+                  <option value="volvo">United States</option>
+                  <option value="saab">Saab</option>
+                  <option value="opel">Opel</option>
+                  <option value="audi">Audi</option>
+                </select>
+                <br><br>
+                <input type="submit" value="Submit">
+              </form>
+        </div>
+</div>
+
+    <script>
+        function myFunction(){
+  var input = $('#datePicker').val();
+  var birthday = new Date(input.replace(/-/g, '\/'));
+  var birthYear = birthday.getFullYear();
+  var birthMonth = birthday.getMonth();
+  var birthDay = birthday.getDate();
+  var today = new Date();
+  var currentYear = today.getFullYear();
+  var age = currentYear - birthYear;
+  
+  if(today.getMonth()<birthMonth || (today.getMonth()== birthMonth && today.getDate()< birthDay))
+     {
+        age--;
+     }
+  
+  $('button').click(function() {
+      alert("You are " + age + " years old.");        
+  });
+}
+    </script>
+</body>
+</html>

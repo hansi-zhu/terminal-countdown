@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grid with Height 100vh</title>
+<style>
+    body, html {
+        margin: 2px;
+        padding: 0;
+        height: 100%;
+        font-family: monospace;
+    }
+    .row {
+        margin: 0;
+        padding: 0;
+        white-space: nowrap;
+        height: 9px;
+    }
+    .square {
+        display: inline-block;
+        width: 9px;
+        height: 9px;
+        border: 0.8px solid white;
+        background-color: rgba(211, 211, 211, 0.899);
+    }
+    .square:hover {
+        background-color: red;
+    }
+    .square.sibling-hover {
+        background-color: pink;
+    }
+    .dark-gray {
+        background-color: rgb(97, 97, 97);
+    }
+    .grid-container {
+        display: grid;
+        grid-template-rows: 60px auto;
+        grid-template-columns: 75px 45vw auto;
+        height: 100vh;
+    }
+    .grid-item {
+        border: none;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+    .grid-item:nth-child(1) {
+        grid-row: 1;
+        grid-column: 1 / span 3;
+        padding-left: 85px;
+        padding-bottom: 0;
+    }
+    .grid-item:nth-child(2) {
+        grid-row: 2;
+        grid-column: 1;
+        padding-right: 0;
+        padding-left: 30px;
+    }
+    .grid-item:nth-child(3) {
+        grid-row: 2;
+        grid-column: 2;
+    }
+    .grid-item:nth-child(4) {
+        grid-row: 2;
+        grid-column: 3;
+    }
+    #weeks {
+        font-size: 7.814px;
+        writing-mode: vertical-rl;
+        height: 50px;
+        transform: rotate(180deg);
+        line-height: 10px;
+    }
+    #years {
+        font-size: 7.814px;
+        padding: 0;
+        padding-top: 2.8px;
+        text-align: right;
+    }
+</style>
+</head>
+<body>
+
+<div class="grid-container">
+    <div class="grid-item">
+        <div id="weeks">
+            Week 1
+            Week 2
+            Week 3
+            <!-- Remaining weeks omitted for brevity -->
+        </div>
+    </div>
+    <div class="grid-item">
+        <div id="years">
+            Year 01
+            Year 02
+            Year 03
+            <!-- Remaining years omitted for brevity -->
+        </div>
+    </div>
+    <div class="grid-item" id="lifegrid"></div>
+    <div class="grid-item" id="sentence"></div> <!-- Added div with id "sentence" -->
+    <div class="grid-item">
+        Hansi Zhu, born 22 October 2003.
+    </div>
+</div>
+
+<script>
+    // Function to calculate the number of days since October 22 of the previous year
+    function daysSincePreviousOctober22() {
+        const today = new Date();
+        const previousOctober22 = new Date(today.getFullYear() - 1, 9, 22); // Month is 0-indexed
+        const diffTime = today - previousOctober22;
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        return diffDays;
+    }
+
+    // Function to generate grid
+    function generateGrid() {
+        const rows = 80;
+        const columns = 52;
+        const grid = document.createElement('div');
+        grid.classList.add('grid');
+
+        const container = document.createElement('div');
+        container.classList.add('container');
+
+        const yearsSince2003 = Math.floor((new Date() - new Date(2003, 9, 22)) / (1000 * 60 * 60 * 24 * 365));
+        const daysSincePrevOct22 = daysSincePreviousOctober22();
+
+        const totalSquares = (yearsSince2003 * columns) + Math.floor(daysSincePrevOct22 / 7);
+
+        // Loop through rows
+        for (let i = 0; i < rows; i++) {
+            const row = document.createElement('div');
+            row.classList.add('row');
+
+            // Loop through columns
+            for (let j = 0; j < columns; j++) {
+                const square = document.createElement('div');
+                square.classList.add('square');
+                // Add dark gray background to the specified number of squares
+                if (i * columns + j < totalSquares) {
+                    square.classList.add('dark-gray');
+                }
+                row.appendChild(square);
+            }
+
+            container.appendChild(row);
+        }
+
+        grid.appendChild(container);
+        document.getElementById('lifegrid').appendChild(grid);
+
+        // Calculate remaining weeks and days
+        const weeksLeft = totalSquares;
+        const daysLeft = totalSquares * 7;
+
+        // Create sentence text
+        const sentenceText = weeksLeft + " weeks left (" + daysLeft + " days)";
+
+        // Append the sentence to the div with id "sentence"
+        document.getElementById('sentence').innerText = sentenceText;
+
+        // Hover effect
+        const squares = document.querySelectorAll('.square');
+        squares.forEach(square => {
+            square.addEventListener('mouseenter', () => {
+                square.style.backgroundColor = 'red';
+                const serial = Array.from(square.parentNode.children).indexOf(square);
+                const allRows = document.querySelectorAll('.row');
+                allRows.forEach(row => {
+                    row.children[serial].classList.add('sibling-hover');
+                });
+            });
+            square.addEventListener('mouseleave', () => {
+                square.style.backgroundColor = 'rgba(211, 211, 211, 0.899)';
+                const serial = Array.from(square.parentNode.children).indexOf(square);
+                const allRows = document.querySelectorAll('.row');
+                allRows.forEach(row => {
+                    row.children[serial].classList.remove('sibling-hover');
+                });
+            });
+        });
+    }
+
+    // Call the function to generate grid
+    generateGrid();
+</script>
+
+
+</body>
+</html>
