@@ -11,6 +11,14 @@
         height: 100%;
         font-family: monospace;
     }
+    h1{
+        @font-face {
+            font-family: PP;
+            src: url(fonts/PPEditorialNew-Regular);
+        }
+        font-family: 'PPEditorialNew-Regular';
+        font-weight:400;
+    }
     .row {
         margin: 0;
         padding: 0;
@@ -25,13 +33,13 @@
         background-color: rgba(211, 211, 211, 0.899);
     }
     .square:hover {
-        background-color: rgb(255, 255, 255);
+        background-color: red;
     }
     .square.sibling-hover {
-        background-color: #b2ab93;
+        background-color: #a36161;
     }
     .square.square-hover{
-        background-color:rgb(159, 126, 9);
+        background-color:red;
     }
     .dark-gray {
         background-color: rgb(97, 97, 97);
@@ -81,11 +89,14 @@
         text-align: right;
     }
     #sentence{
-        color: red;
+        color:red;
         font-weight:bold;
     }
     #stats td{
-    padding-right: 15px;
+        padding-right:15px;
+    }
+    #stats td:first-child{
+        color: rgb(152, 152, 152);
     }
 </style>
 </head>
@@ -234,52 +245,55 @@
     </div>
     <div class="grid-item" id="lifegrid"></div>
     <div class="grid-item">
-        Hansi Zhu, born October 22, 2003.
-        <br>
-        <br>
-            <table id="stats">
-                <tr>
-                  <td>Sex</td>
-                  <td>Female</td>
-                </tr>
-                <tr>
-                  <td>Ethnicity</td>
-                  <td>Chinese</td>
-                </tr>
-                <tr>
-                  <td>Nationality</td>
-                  <td>United States</td>
-                </tr>
-                <tr>
-                  <td>Education</td>
-                  <td>Bachelors Degree</td>
-                </tr>
-                <tr>
-                  <td>Heart disease</td>
-                  <td>None</td>
-                </tr>
-                <tr>
-                  <td>Marital status</td>
-                  <td>Single</td>
-                </tr>
-                <tr>
-                  <td>Prescriptions</td>
-                  <td>None</td>
-                </tr>
-                <tr>
-                  <td>Supplements</td>
-                  <td>500mg iron/daily</td>
-                </tr>
-                <tr>
-                  <td>Steps per day</td>
-                  <td>8,341</td>
-                </tr>
-                <tr>
-                  <td>Resting heart rate</td>
-                  <td>51 bpm</td>
-                </tr>
-              </table>
-        <br>
+        <h1>Hansi Zhu, born October 22, 2003.</h1>
+        <table id="stats">
+            <tr>
+              <td>Sex</td>
+              <td>Female</td>
+            </tr>
+            <tr>
+              <td>Ethnicity</td>
+              <td>Chinese</td>
+            </tr>
+            <tr>
+              <td>Nationality</td>
+              <td>United States</td>
+            </tr>
+            <tr>
+              <td>Education</td>
+              <td>Bachelors Degree</td>
+            </tr>
+            <tr>
+              <td>Marital status</td>
+              <td>Single</td>
+            </tr>
+            <tr>
+              <td>Prescriptions</td>
+              <td>None</td>
+            </tr>
+            <tr>
+              <td>Supplements</td>
+              <td>125mg iron/daily</td>
+            </tr>
+            <tr>
+                <td>Allergies</td>
+                <td>None</td>
+              </tr>
+            <tr>
+            <tr>
+                <td>Heart disease</td>
+                <td>None</td>
+              </tr>
+            <tr>
+              <td>Steps per day</td>
+              <td>8,341 avg</td>
+            </tr>
+            <tr>
+              <td>Resting heart rate</td>
+              <td>51 bpm avg</td>
+            </tr>
+          </table>
+    <br>
         <div id="sentence"></div>
     </div>
 </div>
@@ -332,7 +346,7 @@
         document.getElementById('lifegrid').appendChild(grid);
 
         // Calculate remaining weeks and days
-        const weeksLeft = totalSquares;
+        const weeksLeft = 4160-totalSquares;
         const daysLeft = totalSquares * 7;
 
         // Create sentence text
@@ -342,35 +356,44 @@
         document.getElementById('sentence').innerText = sentenceText;
 
         // Hover effect
-        const squares = document.querySelectorAll('.square');
-        squares.forEach(square => {
-            square.addEventListener('mouseenter', () => {
-                square.classList.add('square-hover');
-                const siblings = Array.from(square.parentNode.children);
-                siblings.forEach(sibling => {
-                    if (sibling !== square) {
-                        sibling.classList.add('sibling-hover');
-                    }
-                });
-                const serial = Array.from(square.parentNode.children).indexOf(square);
-                const allRows = document.querySelectorAll('.row');
-                allRows.forEach(row => {
-                    row.children[serial].classList.add('sibling-hover');
-                });
-            });
-            square.addEventListener('mouseleave', () => {
-                square.classList.remove('square-hover');
-                const siblings = Array.from(square.parentNode.children);
-                siblings.forEach(sibling => {
-                    sibling.classList.remove('sibling-hover');
-                });
-                const serial = Array.from(square.parentNode.children).indexOf(square);
-                const allRows = document.querySelectorAll('.row');
-                allRows.forEach(row => {
-                    row.children[serial].classList.remove('sibling-hover');
-                });
-            });
+const squares = document.querySelectorAll('.square');
+squares.forEach(square => {
+    square.addEventListener('mouseenter', () => {
+        square.classList.add('square-hover');
+        const siblings = Array.from(square.parentNode.children);
+        const index = siblings.indexOf(square);
+        for (let i = 0; i < index; i++) {
+            siblings[i].classList.add('sibling-hover');
+        }
+        const rowIndex = Array.from(square.parentNode.parentNode.children).indexOf(square.parentNode);
+        const allRows = Array.from(document.querySelectorAll('.row'));
+        allRows.forEach((row, i) => {
+            if (i < rowIndex) {
+                const squareInColumn = row.children[index];
+                squareInColumn.classList.add('sibling-hover');
+            }
         });
+    });
+    square.addEventListener('mouseleave', () => {
+        square.classList.remove('square-hover');
+        const siblings = Array.from(square.parentNode.children);
+        siblings.forEach(sibling => {
+            sibling.classList.remove('sibling-hover');
+        });
+        const index = siblings.indexOf(square);
+        const allRows = Array.from(document.querySelectorAll('.row'));
+        allRows.forEach(row => {
+            const squareInColumn = row.children[index];
+            squareInColumn.classList.remove('sibling-hover');
+        });
+    });
+});
+   // Flickering effect for the nth square
+   const nthSquareIndex = totalSquares; // Index of the nth square
+    const nthSquare = squares[nthSquareIndex];
+    setInterval(() => {
+        nthSquare.classList.toggle('dark-gray');
+    }, 500); // Toggle between dark gray and rgba(211, 211, 211, 0.899) every 0.5 seconds
     }
 
     // Call the function to generate grid
