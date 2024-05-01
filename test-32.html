@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terminal Countdown</title>
+<style>
+    body, html {
+        margin: 2px;
+        padding: 0;
+        font-family: monospace;
+        font-size:11px;
+    }
+    @font-face {
+            font-family: PP;
+            src: url(fonts/PPEditorialNew-Regular.otf);
+        }
+    h1{
+        
+        font-family: 'PP';
+        font-weight:800;
+        font-size:2.2vw;
+        text-align:center;
+    }
+    .row {
+        margin: 0;
+        padding: 0;
+        white-space: nowrap;
+        height: 14px;
+    }
+    .square {
+        display: inline-block;
+        width: 13px;
+        height: 13px;
+        border: 0.8px solid white;
+        background-color: rgba(211, 211, 211, 0.899);
+    }
+    .square:hover {
+        background-color: red;
+    }
+    .square.sibling-hover {
+        background-color: #a36161;
+    }
+    .square.square-hover{
+        background-color:red;
+    }
+    .dark-gray {
+        background-color: rgb(97, 97, 97);
+    }
+    .grid-container {
+        display: grid;
+        grid-template-rows: 60px auto;
+        grid-template-columns: 75px 45vw 45vw 75px;
+        height: 100vh;
+    }
+    .grid-item {
+        border: none;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+    .grid-item:nth-child(1) {
+        grid-row: 1 / span 2;
+        grid-column: 1 / span 3;
+        padding-left: 0px;
+        padding-bottom: 0;
+    }
+    .grid-item:nth-child(2) {
+        grid-row: 4;
+        grid-column: 1 / span 3;
+        padding-left: 85px;
+        padding-bottom: 0;
+        text-align: right;
+    }
+    .grid-item:nth-child(3) {
+        grid-row: 3;
+        grid-column: 1;
+        padding-right: 0;
+        padding-left: 30px;
+    }
+    .grid-item:nth-child(4) {
+        grid-row: 3;
+        grid-column: 2;
+    }
+    .grid-item:nth-child(5) {
+        grid-row: 5;
+        grid-column: 1 / span 4;
+    }
+    #weeks {
+        font-size: 10px;
+        padding: 0;
+        padding-top: 2.8px;
+        text-align: right; 
+        line-height:12px;
+    }
+    #years {
+        
+        font-size: 10px;
+        writing-mode: vertical-rl;
+        height: 50px;
+        transform: rotate(180deg);
+        line-height: 12px;
+    }
+    #sentence{
+        text-align: center;
+        color:red;
+        font-weight:bold;
+        font-size:30px;
+        font-family:'PP';
+    }
+    #countdown{
+        text-align: center;
+        color:red;
+        font-weight:bold;
+        font-size:20px;
+        font-family:'PP';
+    }
+    #stats{
+        font-family:PP;
+    }
+    #stats td{
+        padding-right:15px;
+    }
+    #stats td:first-child{
+        color: rgb(152, 152, 152);
+    }
+</style>
+</head>
+<body>
+
+<div class="grid-container">
+    <div class="grid-item">
+        <h1>Hansi Zhu, born 1:40 PM on October 22, 2003 in Ridgewood, NJ</h1>
+        <div id="sentence"></div>
+        <br>
+        <div id="countdown"></div>
+    </div>
+    <div class="grid-item">
+        <div id="years">
+            Year 01
+            Year 02
+            Year 03
+            Year 04
+            Year 05
+            Year 06
+            Year 07
+            Year 08
+            Year 09
+            Year 10
+            Year 11
+            Year 12
+            Year 13
+            Year 14
+            Year 15
+            Year 16
+            Year 17
+            Year 18
+            Year 19
+            Year 20
+            Year 21
+            Year 22
+            Year 23
+            Year 24
+            Year 25
+            Year 26
+            Year 27
+            Year 28
+            Year 29
+            Year 30
+            Year 31
+            Year 32
+            Year 33
+            Year 34
+            Year 35
+            Year 36
+            Year 37
+            Year 38
+            Year 39
+            Year 40
+            Year 41
+            Year 42
+            Year 43
+            Year 44
+            Year 45
+            Year 46
+            Year 47
+            Year 48
+            Year 49
+            Year 50
+            Year 51
+            Year 52
+            Year 53
+            Year 54
+            Year 55
+            Year 56
+            Year 57
+            Year 58
+            Year 59
+            Year 60
+            Year 61
+            Year 62
+            Year 63
+            Year 64
+            Year 65
+            Year 66
+            Year 67
+            Year 68
+            Year 69
+            Year 70
+            Year 71
+            Year 72
+            Year 73
+            Year 74
+            Year 75
+            Year 76
+            Year 77
+            Year 78
+            Year 79
+            Year 80
+        </div>
+    </div>
+    <div class="grid-item">
+        <div id="weeks">
+            Week 1
+            Week 2
+            Week 3
+            Week 4
+            Week 5
+            Week 6
+            Week 7
+            Week 8
+            Week 9
+            Week 10
+            Week 11
+            Week 12
+            Week 13
+            Week 14
+            Week 15
+            Week 16
+            Week 17
+            Week 18
+            Week 19
+            Week 20
+            Week 21
+            Week 22
+            Week 23
+            Week 24
+            Week 25
+            Week 26
+            Week 27
+            Week 28
+            Week 29
+            Week 30
+            Week 31
+            Week 32
+            Week 33
+            Week 34
+            Week 35
+            Week 36
+            Week 37
+            Week 38
+            Week 39
+            Week 40
+            Week 41
+            Week 42
+            Week 43
+            Week 44
+            Week 45
+            Week 46
+            Week 47
+            Week 48
+            Week 49
+            Week 50
+            Week 51
+            Week 52
+        </div>
+    </div>
+    <div class="grid-item" id="lifegrid"></div>
+    <div class="grid-item">
+        <table id="stats">
+            <tr>
+              <td>Sex</td>
+              <td>Female</td>
+            </tr>
+            <tr>
+                <td>Height</td>
+                <td>5 ft 5.5 in</td>
+              </tr>
+              <td>Weight</td>
+                <td>122 lb</td>
+              </tr>
+            <tr>
+              <td>Ethnicity</td>
+              <td>Chinese</td>
+            </tr>
+            <tr>
+              <td>Nationality</td>
+              <td>United States</td>
+            </tr>
+            <tr>
+                <td>Residence</td>
+                <td>New York City</td>
+              </tr>
+            <tr>
+              <td>Education</td>
+              <td>Bachelors in Progress</td>
+            </tr>
+            <tr>
+              <td>Marital status</td>
+              <td>Single</td>
+            </tr>
+            <tr>
+              <td>Prescriptions</td>
+              <td>None</td>
+            </tr>
+            <tr>
+              <td>Supplements</td>
+              <td>125mg iron/daily</td>
+            </tr>
+            <tr>
+                <td>Allergies</td>
+                <td>None</td>
+            </tr>
+            <tr>
+                <td>Smoke</td>
+                <td>Never</td>
+            </tr>
+            <tr>
+                <td>Alcohol</td>
+                <td>Rarely</td>
+            </tr>
+            <tr>
+              <td>Steps per day</td>
+              <td>8,341 avg</td>
+            </tr>
+            <tr>
+              <td>Resting heart rate</td>
+              <td>51 bpm avg</td>
+            </tr>
+            <tr>
+                <td>Chronic illness</td>
+                <td>None</td>
+            </tr>
+            <tr>
+                <td>Heart disease</td>
+                <td>None</td>
+            </tr>
+            <tr>
+                <td>Parents</td>
+                <td>2 alive / 2 total</td>
+            </tr>
+            <tr>
+                <td>Grandparents</td>
+                <td>1 alive / 4 total</td>
+            </tr>
+            <tr>
+                <td>Family health history</td>
+                <td>Cancer</td>
+            </tr>
+            <tr>
+                <td>Estimated life span</td>
+                <td>80.0 years</td>
+              </tr>
+          </table>
+    <br><br>
+ 
+    </div>
+</div>
+
+<script>
+    // Function to calculate the number of days since October 22 of the previous year
+    function daysSincePreviousOctober22() {
+        const today = new Date();
+        const previousOctober22 = new Date(today.getFullYear() - 1, 9, 22); // Month is 0-indexed
+        const diffTime = today - previousOctober22;
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        return diffDays;
+    }
+
+    // Function to generate grid
+    function generateGrid() {
+        const rows = 80;
+        const columns = 52;
+        const grid = document.createElement('div');
+        grid.classList.add('grid');
+
+        const container = document.createElement('div');
+        container.classList.add('container');
+
+        const yearsSince2003 = Math.floor((new Date() - new Date(2003, 9, 22)) / (1000 * 60 * 60 * 24 * 365));
+        const daysSincePrevOct22 = daysSincePreviousOctober22();
+
+        const totalSquares = (yearsSince2003 * columns) + Math.floor(daysSincePrevOct22 / 7);
+
+        // Loop through rows
+        for (let i = 0; i < rows; i++) {
+            const row = document.createElement('div');
+            row.classList.add('row');
+
+            // Loop through columns
+            for (let j = 0; j < columns; j++) {
+                const square = document.createElement('div');
+                square.classList.add('square');
+                // Add dark gray background to the specified number of squares
+                if (i * columns + j < totalSquares) {
+                    square.classList.add('dark-gray');
+                }
+                row.appendChild(square);
+            }
+
+            container.appendChild(row);
+        }
+
+        grid.appendChild(container);
+        document.getElementById('lifegrid').appendChild(grid);
+
+        // Calculate remaining weeks and days
+        const weeksLeft = 4160-totalSquares;
+        const daysLeft = totalSquares * 7;
+
+        // Create sentence text
+        const sentenceText = weeksLeft + "  out of 4160 weeks remaining (" + daysLeft + "/29120 days)";
+
+        // Append the sentence to the div with id "sentence"
+        document.getElementById('sentence').innerText = sentenceText;
+
+        // Hover effect
+        const squares = document.querySelectorAll('.square');
+        squares.forEach(square => {
+            square.addEventListener('mouseenter', () => {
+                square.classList.add('square-hover');
+                const siblings = Array.from(square.parentNode.children);
+                siblings.forEach(sibling => {
+                    if (sibling !== square) {
+                        sibling.classList.add('sibling-hover');
+                    }
+                });
+                const serial = Array.from(square.parentNode.children).indexOf(square);
+                const allRows = document.querySelectorAll('.row');
+                allRows.forEach(row => {
+                    row.children[serial].classList.add('sibling-hover');
+                });
+            });
+            square.addEventListener('mouseleave', () => {
+                square.classList.remove('square-hover');
+                const siblings = Array.from(square.parentNode.children);
+                siblings.forEach(sibling => {
+                    sibling.classList.remove('sibling-hover');
+                });
+                const serial = Array.from(square.parentNode.children).indexOf(square);
+                const allRows = document.querySelectorAll('.row');
+                allRows.forEach(row => {
+                    row.children[serial].classList.remove('sibling-hover');
+                });
+            });
+        });
+   // Flickering effect for the nth square
+   const nthSquareIndex = totalSquares; // Index of the nth square
+    const nthSquare = squares[nthSquareIndex];
+    setInterval(() => {
+        nthSquare.classList.toggle('dark-gray');
+    }, 500); // Toggle between dark gray and rgba(211, 211, 211, 0.899) every 0.5 seconds
+    
+// Function to calculate the countdown text
+function calculateCountdownText() {
+    // Calculate hours left
+    const hoursLeft = Math.floor(daysLeft * 24);
+    
+    // Get the current time
+    const now = new Date();
+    
+    // Calculate minutes left until 1:40 PM
+    const targetTime = new Date(now);
+    targetTime.setHours(13); // Set hours to 1 PM
+    targetTime.setMinutes(40); // Set minutes to 40
+    targetTime.setSeconds(0); // Set seconds to 0
+    if (now.getHours() >= 13 || (now.getHours() === 12 && now.getMinutes() >= 40)) {
+        targetTime.setDate(now.getDate() + 1); // Move to next day if it's already past 1:40 PM
+    }
+    const minutesLeft = Math.floor((targetTime - now) / (1000 * 60));
+    
+    // Calculate seconds left until next minute
+    const secondsLeft = 60 - now.getSeconds();
+
+    // Construct the countdown text
+    const countdownText = hoursLeft + " hours, " + minutesLeft + " minutes, and " + secondsLeft + " seconds left";
+
+    // Set the countdown text in the div with id "countdown"
+    document.getElementById('countdown').innerText = countdownText;
+    }
+
+    // Call the function to calculate and display the countdown text
+    calculateCountdownText();
+
+    // Update the countdown text every second
+    setInterval(calculateCountdownText, 1000);
+    }
+
+    // Call the function to generate grid
+    generateGrid();
+
+</script>
+
+</body>
+</html>

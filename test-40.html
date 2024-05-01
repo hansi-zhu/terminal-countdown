@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terminal Countdown</title>
+<link rel="stylesheet" href="https://use.typekit.net/hff7qjt.css">
+<style>
+    body, html {
+        margin: 2px;
+        padding: 0;
+        font-family: monospace;
+        font-size:11px;
+        background-color:rgb(24, 24, 24);
+        color:white;
+    }
+        /* Add the keyframes for color change */
+        @keyframes colorChangeAnimation {
+        0% {
+            background-color: rgba(211, 211, 211, 0.899); /* Start with light gray */
+        }
+        14.28% {
+            background-color: red; /* Change to red */
+        }
+        28.56% {
+            background-color: orange; /* Change to orange */
+        }
+        42.84% {
+            background-color: yellow; /* Change to yellow */
+        }
+        57.12% {
+            background-color: green; /* Change to green */
+        }
+        71.4% {
+            background-color: blue; /* Change to blue */
+        }
+        85.68% {
+            background-color: indigo; /* Change to indigo */
+        }
+        100% {
+            background-color: violet; /* Change to violet */
+        }
+    }
+    @font-face {
+            font-family: PP;
+            src: url(fonts/PPEditorialNew-Regular.woff2);
+        }
+    h1{
+        
+        font-family: 'PP';
+        font-weight:800;
+        font-size:2.2vw;
+        text-align:center;
+    }
+    .row {
+        margin: 0;
+        padding: 0;
+        white-space: nowrap;
+        height: 12px;
+    }
+    .square {
+        display: inline-block;
+        width: 11px;
+        height: 11px;
+        border: 0.8px solid white;
+        background-color: rgba(211, 211, 211, 0.899);       
+}
+    .square:hover {
+        background-color: rgb(255, 255, 255);
+    }
+    .square.sibling-hover {
+        background-color: #a36161;
+    }
+    .square.square-hover{
+        background-color:rgb(255, 255, 255);
+    }
+    .dark-gray {
+        background-color: rgb(211, 211, 211, 0.899);
+    }
+    .grid-container {
+        display: grid;
+        grid-template-rows: 60px auto;
+        grid-template-columns: 16vw auto 16vw;
+    }
+    .grid-item {
+        border: none;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+    .grid-item:nth-child(1) {
+        grid-row: 1 / span 2;
+        grid-column: 1 / span 3;
+        padding-bottom: 40px;
+        
+    }
+    .grid-item:nth-child(2) {
+        grid-row: 4;
+        grid-column: 2 / span 2;
+        padding-top: 0;
+        text-align: right;
+    }
+    .grid-item:nth-child(3) {
+        grid-row: 3;
+        grid-column: 1;
+        padding-left: 11vw;
+        padding-right:0.2vw;
+    }
+    .grid-item:nth-child(4) {
+        grid-row: 3;
+        grid-column: 2;
+        text-align: center;
+    }
+    .grid-item:nth-child(5) {
+        grid-row: 5;
+        grid-column: 2 / span 2;
+        font-family:'pp';
+        font-size:20px;
+    }
+    #weeks {
+        font-size: 11px;
+        padding: 0;
+        padding-top: 2.8px;
+        text-align: right; 
+        line-height:12px;
+    }
+    #years {
+        
+        font-size: 11px;
+        writing-mode: vertical-rl;
+        height: 70px;
+        transform: rotate(180deg);
+        line-height: 12px;
+    }
+    #sentence{
+        text-align: center;
+        font-weight:bold;
+        font-size:50px;
+        font-family:'PP';
+    }
+    #countdown{
+        text-align: center;
+        font-weight:bold;
+        font-size:20px;
+        font-family:'PP';
+    }
+    #stats{
+        font-family:PP;
+        font-size:15px;
+    }
+    #stats td{
+        padding-right:15px;
+    }
+    #stats td:first-child{
+        color: rgb(152, 152, 152);
+    }
+
+</style>
+</head>
+<body>
+
+<div class="grid-container">
+    <div class="grid-item">
+        <h1>Hansi Zhu, born 1:40 PM on October 22, 2003 in Ridgewood, NJ</h1>
+        <div id="sentence"></div>
+        <br>
+        <div id="countdown"></div>
+    </div>
+    <div class="grid-item">
+        <div id="years">
+            Year 01
+            Year 02
+            Year 03
+            Year 04
+            Year 05
+            Year 06
+            Year 07
+            Year 08
+            Year 09
+            Year 10
+            Year 11
+            Year 12
+            Year 13
+            Year 14
+            Year 15
+            Year 16
+            Year 17
+            Year 18
+            Year 19
+            Year 20
+            Year 21
+            Year 22
+            Year 23
+            Year 24
+            Year 25
+            Year 26
+            Year 27
+            Year 28
+            Year 29
+            Year 30
+            Year 31
+            Year 32
+            Year 33
+            Year 34
+            Year 35
+            Year 36
+            Year 37
+            Year 38
+            Year 39
+            Year 40
+            Year 41
+            Year 42
+            Year 43
+            Year 44
+            Year 45
+            Year 46
+            Year 47
+            Year 48
+            Year 49
+            Year 50
+            Year 51
+            Year 52
+            Year 53
+            Year 54
+            Year 55
+            Year 56
+            Year 57
+            Year 58
+            Year 59
+            Year 60
+            Year 61
+            Year 62
+            Year 63
+            Year 64
+            Year 65
+            Year 66
+            Year 67
+            Year 68
+            Year 69
+            Year 70
+            Year 71
+            Year 72
+            Year 73
+            Year 74
+            Year 75
+            Year 76
+            Year 77
+            Year 78
+            Year 79
+            Year 80
+        </div>
+    </div>
+    <div class="grid-item">
+        <div id="weeks">
+            Week 52 Week 51 Week 50 Week 49 Week 48 Week 47 Week 46 Week 45 Week 44 Week 43 Week 42 Week 41 Week 40 Week 39 Week 38 Week 37 Week 36 Week 35 Week 34 Week 33 Week 32 Week 31 Week 30 Week 29 Week 28 Week 27 Week 26 Week 25 Week 24 Week 23 Week 22 Week 21 Week 20 Week 19 Week 18 Week 17 Week 16 Week 15 Week 14 Week 13 Week 12 Week 11 Week 10 Week 09 Week 08 Week 07 Week 06 Week 05 Week 04 Week 03 Week 02 Week 01
+
+        </div>
+    </div>
+    <div class="grid-item" id="lifegrid"></div>
+    <div class="grid-item">
+        Calculation based on country of residence, sex, and ethnicity to find a total predicted lifespan of 80.0 years.
+ 
+    </div>
+</div>
+
+<script>
+    // Function to calculate the number of days since October 22 of the previous year
+    function daysSincePreviousOctober22() {
+        const today = new Date();
+        const previousOctober22 = new Date(today.getFullYear() - 1, 9, 22); // Month is 0-indexed
+        const diffTime = today - previousOctober22;
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        return diffDays;
+    }
+
+    // Function to generate random rainbow colors
+    function generateRainbowColor() {
+        const hue = Math.floor(Math.random() * 360); // Random hue value
+        return `hsl(${hue}, 100%, 50%)`; // Convert hue to HSL format
+    }
+
+    // Function to update colors of squares
+function updateColors() {
+    const lightGraySquares = document.querySelectorAll('.square:not(.dark-gray)');
+    lightGraySquares.forEach(square => {
+        if (!square.classList.contains('square-hover')) {
+            // Determine randomly whether to change color every 0.5 seconds or 1 second
+            const delay = Math.random() < 0.5 ? 500 : 1000;
+            setTimeout(() => {
+                square.style.backgroundColor = generateRainbowColor();
+            }, delay);
+        }
+    });
+}
+
+    // Function to generate grid
+    function generateGrid() {
+        const rows = 52;
+        const columns = 80;
+        const grid = document.createElement('div');
+        grid.classList.add('grid');
+
+        const container = document.createElement('div');
+        container.classList.add('container');
+
+        const yearsSince2003 = Math.floor((new Date() - new Date(2003, 9, 22)) / (1000 * 60 * 60 * 24 * 365));
+        const daysSincePrevOct22 = daysSincePreviousOctober22();
+
+        const totalSquares = (yearsSince2003 * rows) + Math.floor(daysSincePrevOct22 / 7);
+
+        // Loop through rows
+        for (let i = 0; i < rows; i++) {
+            const row = document.createElement('div');
+            row.classList.add('row');
+
+            // Loop through columns
+            for (let j = 0; j < columns; j++) {
+                const square = document.createElement('div');
+                square.classList.add('square');
+
+                // Calculate the index of the current square in the overall grid
+                const index = j * rows + i;
+
+                // Add dark gray background to the square if its index is less than totalSquares
+                if (index < totalSquares) {
+                    square.classList.add('dark-gray');
+                } else {
+                    // Assign random rainbow color to the square
+                    square.style.backgroundColor = generateRainbowColor();
+                }
+
+                row.appendChild(square);
+            }
+
+            container.appendChild(row);
+        }
+
+        grid.appendChild(container);
+        document.getElementById('lifegrid').appendChild(grid);
+
+        // Calculate remaining weeks and days
+        const weeksLeft = 4160 - totalSquares;
+        const daysLeft = totalSquares * 7;
+
+        // Create sentence text
+        const sentenceText = weeksLeft + "  out of 4160 weeks remaining (" + daysLeft + "/29120 days)";
+
+        // Append the sentence to the div with id "sentence"
+        document.getElementById('sentence').innerText = sentenceText;
+
+        
+
+        // Set up interval to update colors
+        setInterval(updateColors, 1000);
+
+        // Function to calculate the countdown text
+        function calculateCountdownText() {
+            // Calculate hours left
+            const hoursLeft = Math.floor(daysLeft * 24);
+
+            // Get the current time
+            const now = new Date();
+
+            // Calculate minutes left until 1:40 PM
+            const targetTime = new Date(now);
+            targetTime.setHours(13); // Set hours to 1 PM
+            targetTime.setMinutes(40); // Set minutes to 40
+            targetTime.setSeconds(0); // Set seconds to 0
+            if (now.getHours() >= 13 || (now.getHours() === 12 && now.getMinutes() >= 40)) {
+                targetTime.setDate(now.getDate() + 1); // Move to next day if it's already past 1:40 PM
+            }
+            const minutesLeft = Math.floor((targetTime - now) / (1000 * 60));
+
+            // Calculate seconds left until next minute
+            const secondsLeft = 60 - now.getSeconds();
+
+            // Construct the countdown text
+            const countdownText = hoursLeft + " hours, " + minutesLeft + " minutes, and " + secondsLeft + " seconds left";
+
+            // Set the countdown text in the div with id "countdown"
+            document.getElementById('countdown').innerText = countdownText;
+        }
+
+        // Call the function to calculate and display the countdown text
+        calculateCountdownText();
+
+        // Update the countdown text every second
+        setInterval(calculateCountdownText, 1000);
+
+     // Hover effect
+const squares = document.querySelectorAll('.square');
+squares.forEach(square => {
+    square.addEventListener('mouseenter', () => {
+        square.classList.add('square-hover');
+        square.style.backgroundColor = 'white'; // Set background color to white
+        const siblings = Array.from(square.parentNode.children);
+        siblings.forEach(sibling => {
+            if (sibling !== square) {
+                sibling.classList.add('sibling-hover');
+                // Set background color of sibling to light gray
+                sibling.style.backgroundColor = 'rgba(211, 211, 211, 0.899)';
+            }
+        });
+    });
+    square.addEventListener('mouseleave', () => {
+        square.classList.remove('square-hover');
+        square.style.backgroundColor = ''; // Reset background color
+        const siblings = Array.from(square.parentNode.children);
+        siblings.forEach(sibling => {
+            sibling.classList.remove('sibling-hover');
+            // Reset background color of sibling
+            if (!sibling.classList.contains('dark-gray')) {
+                sibling.style.backgroundColor = '';
+            } else {
+                sibling.style.backgroundColor = 'rgba(211, 211, 211, 0.899)'; // Revert dark gray squares to light gray
+            }
+        });
+    });
+});
+
+    }
+
+    // Call the function to generate grid
+    generateGrid();
+</script>
+
+
+
+</body>
+</html>

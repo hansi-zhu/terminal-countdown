@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life Expectancy Calculator</title>
+</head>
+<body>
+    <h1>Life Expectancy Calculator</h1>
+    <form id="lifeExpectancyForm">
+        <label for="country">Country:</label>
+        <select id="country" name="country">
+        </select><br><br>
+
+        <label for="year">Year:</label>
+        <input type="number" id="year" name="year" min="1950" max="2100" value="2021"><br><br>
+
+        <label for="sex">Sex:</label>
+        <select id="sex" name="sex">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select><br><br>
+
+        <button type="submit">Calculate</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        const form = document.getElementById('lifeExpectancyForm');
+        const resultDiv = document.getElementById('result');
+        const countrySelect = document.getElementById('country');
+    
+        // Function to fetch countries from the API and populate the dropdown
+        function populateCountries() {
+            fetch('https://ghoapi.azureedge.net/api/WHOSIS_000001?$select=Location&$groupby=Location')
+                .then(response => response.json())
+                .then(data => {
+                    const countries = data.value.map(entry => entry.Location);
+                    countries.forEach(country => {
+                        const option = document.createElement('option');
+                        option.value = country;
+                        option.textContent = country;
+                        countrySelect.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching countries:', error);
+                });
+        }
+    
+        // Populate countries when the page loads
+        populateCountries();
+    
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+    
+            const country = form.elements['country'].value;
+            const year = form.elements['year'].value;
+            const sex = form.elements['sex'].value;
+    
+            fetch(`https://ghoapi.azureedge.net/api/WHOSIS_000001?filter=Year eq ${year} and Sex eq '${sex}' and Location eq '${country}'`)
+                .then(response => response.json())
+                .then(data => {
+                    const lifeExpectancy = data.value[0].Numeric;
+                    resultDiv.innerHTML = `Life Expectancy in ${country} (${sex}): ${lifeExpectancy}`;
+                })
+                .catch(error => {
+                    resultDiv.innerHTML = "Error fetching data. Please try again.";
+                });
+        });
+    </script>
+    
+</body>
+</html>
