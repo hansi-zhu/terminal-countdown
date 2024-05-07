@@ -46,7 +46,28 @@
         bottom:5vh;
         font-size:2vw;
     }
-
+    #arrow-left, #arrow-right{
+        position:absolute;
+        top:45%;
+        height:7vw;
+        width: 4vw;
+    }
+    #arrow-left{
+        left:3vw;
+        width: 0; 
+  height: 0; 
+  border-top: 3vw solid transparent;
+  border-bottom: 3vw solid transparent;
+  border-right: 3vw solid rgb(0, 0, 0);
+    }
+    #arrow-right{
+        right:3vw;
+        width: 0; 
+  height: 0; 
+  border-top: 3vw solid transparent;
+  border-bottom: 3vw solid transparent;
+  border-left: 3vw solid rgb(0, 0, 0);
+    }
 </style>
 </head>
 <body>
@@ -114,7 +135,37 @@
     </script>
     <div id="background-text">Hansi Zhu, born 1:40 PM <br>on October 22, 2003 <br>in Ridgewood, NJ</div>
     <div id="remaining">Hansi Zhu, born 1:40 PM on October 22, 2003 in Ridgewood, NJ</div>
-    <div id="source">1:54 PM — May 7, 2024</div>
+    <div id="source"></div>
+    <div id="arrow-left"></div>
+    <div id="arrow-right"></div>
 </div>
+
+<script>
+    function updateTime() {
+        const currentDate = new Date();
+        const hours = currentDate.getHours();
+        const minutes = currentDate.getMinutes();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        const formattedHours = hours % 12 || 12; // Convert hours to 12-hour format
+        const formattedMinutes = minutes < 10 ? '0' + minutes : minutes; // Add leading zero if minutes < 10
+        const timeString = formattedHours + ':' + formattedMinutes + ' ' + ampm;
+
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        const month = months[currentDate.getMonth()];
+        const day = currentDate.getDate();
+        const year = currentDate.getFullYear();
+        const dateString = month + ' ' + day + ', ' + year;
+
+        const sourceElement = document.getElementById('source');
+        sourceElement.textContent = timeString + ' — ' + dateString;
+    }
+
+    // Call updateTime once to initialize the time
+    updateTime();
+
+    // Update the time every minute
+    setInterval(updateTime, 60000);
+</script>
+
 </body>
 </html>
