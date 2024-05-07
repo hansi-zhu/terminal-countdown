@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>test-43</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        background-color: white;
+        overflow: hidden;
+        height: 100%;
+    }
+</style>
+</head>
+<body>
+<script>
+    const numCircles = 4160;
+    const circleSize = 10;
+    const circles = [];
+    const startDate = new Date('October 22, 2003');
+    const currentDate = new Date();
+    const daysSinceStart = Math.floor((currentDate - startDate) / (1000 * 60 * 60 * 24));
+    const blackCirclesCount = Math.floor(daysSinceStart / 7);
+
+    function setup() {
+        createCanvas(windowWidth, windowHeight);
+        colorMode(HSL, 360); // Use HSL color mode with hue range from 0 to 360
+        for (let i = 0; i < blackCirclesCount; i++) {
+            let x = random(width);
+            let y = random(height);
+            let vx = random(-2, 2); // Random initial velocity in x-direction
+            let vy = random(-2, 2); // Random initial velocity in y-direction
+            let circle = new Circle(x, y, vx, vy);
+            circles.push(circle);
+        }
+    }
+
+    function draw() {
+        background(360);
+        for (let i = 0; i < circles.length; i++) {
+            circles[i].update();
+            circles[i].display();
+        }
+    }
+
+    class Circle {
+        constructor(x, y, vx, vy) {
+            this.x = x;
+            this.y = y;
+            this.vx = vx;
+            this.vy = vy;
+            this.size = circleSize;
+        }
+
+        update() {
+            this.x += this.vx;
+            this.y += this.vy;
+
+            // Bounce off window boundaries
+            if (this.x + this.size / 2 >= width || this.x - this.size / 2 <= 0) {
+                this.vx *= -1;
+            }
+            if (this.y + this.size / 2 >= height || this.y - this.size / 2 <= 0) {
+                this.vy *= -1;
+            }
+        }
+
+        display() {
+            fill(0); // Black color
+            noStroke();
+            ellipse(this.x, this.y, this.size, this.size);
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>test-43</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        background-color: white;
+        overflow: hidden;
+        height: 100%;
+    }
+</style>
+</head>
+<body>
+<script>
+    let numCircles = 4160;
+    const circleSize = 10;
+    let circles = [];
+    const startDate = new Date('October 22, 2003');
+    const currentDate = new Date();
+    let daysSinceStart;
+    let lilacCirclesCount;
+
+    function setup() {
+        createCanvas(windowWidth, windowHeight);
+        calculateCircleCount();
+        colorMode(HSL, 360); // Use HSL color mode with hue range from 0 to 360
+        for (let i = 0; i < numCircles; i++) {
+            let x = random(width);
+            let y = random(height);
+            let vx = random(-2, 2); // Random initial velocity in x-direction
+            let vy = random(-2, 2); // Random initial velocity in y-direction
+            let circle = new Circle(x, y, vx, vy);
+            circles.push(circle);
+        }
+    }
+
+    function draw() {
+        background(360);
+        for (let i = 0; i < circles.length; i++) {
+            circles[i].update();
+            circles[i].display();
+        }
+    }
+
+    function windowResized() {
+        resizeCanvas(windowWidth, windowHeight);
+        calculateCircleCount();
+        circles = [];
+        for (let i = 0; i < numCircles; i++) {
+            let x = random(width);
+            let y = random(height);
+            let vx = random(-2, 2); // Random initial velocity in x-direction
+            let vy = random(-2, 2); // Random initial velocity in y-direction
+            let circle = new Circle(x, y, vx, vy);
+            circles.push(circle);
+        }
+    }
+
+    function calculateCircleCount() {
+        numCircles = int((windowWidth * windowHeight) / 10000); // Adjust circle count based on window size
+        daysSinceStart = Math.floor((currentDate - startDate) / (1000 * 60 * 60 * 24));
+        lilacCirclesCount = Math.floor(daysSinceStart / 7);
+    }
+
+    class Circle {
+        constructor(x, y, vx, vy) {
+            this.x = x;
+            this.y = y;
+            this.vx = vx;
+            this.vy = vy;
+            this.size = circleSize;
+        }
+
+        update() {
+            this.x += this.vx;
+            this.y += this.vy;
+
+            // Bounce off window boundaries
+            if (this.x + this.size / 2 >= width || this.x - this.size / 2 <= 0) {
+                this.vx *= -1;
+            }
+            if (this.y + this.size / 2 >= height || this.y - this.size / 2 <= 0) {
+                this.vy *= -1;
+            }
+        }
+
+        display() {
+            fill(30, 100, 270); // Lighter lilac color (hue = 270, lightness = 80)
+            noStroke();
+            ellipse(this.x, this.y, this.size, this.size);
+        }
+    }
+</script>
+</body>
+</html>
