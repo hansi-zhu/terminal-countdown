@@ -155,10 +155,34 @@
         color: rgb(152, 152, 152);
     }
 
+    @media screen and (max-width: 1030px){
+        body,html{
+    margin:0px;
+    padding:0px;
+    background-color:red;
+}
+#query{
+    height:100vh;
+    position:fixed;
+    width: 100vw;
+    background-color:red;
+    z-index:100;
+    margin:0;
+    color:white;
+    font-size:2vw;
+    text-align: center;
+    padding-top:45vh;
+}
+.query:before{
+    content:"Please increase your window width.";
+}
+
+    }
+
 </style>
 </head>
 <body>
-
+<div id="query"><span class="query"></span></div>
 <div class="grid-container">
     <div class="grid-item">
         <h1>Hansi Zhu, born 1:40 PM on October 22, 2003 in Ridgewood, NJ</h1>

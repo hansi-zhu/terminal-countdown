@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grid Layout</title>
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0px;
+    }
+
+    .grid-container {
+      display: grid;
+      height: 100vh;
+      grid-template-rows: 50vh 50vh;
+    }
+
+    .content-div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f0f0f0;
+      border: solid black 3px;
+      height:42vh;
+      justify-self: center;
+    }
+
+    #first-div {
+      width: 50vw;
+      position: relative;
+      align-self:flex-end;
+    }
+
+    #second-div {
+      width: 50vw;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+    }
+
+    .beige-circle, .black-circle {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+    }
+
+    .beige-circle {
+      background-color: beige;
+      position: absolute;
+    }
+
+    .black-circle {
+      background-color: black;
+      margin: 2px;
+    }
+
+    .circle-row {
+      display: flex;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="grid-container">
+    <div id="first-div" class="content-div"></div>
+    <div id="second-div" class="content-div"></div>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Get the number of weeks left
+      var startDate = new Date('2003-10-22');
+      var currentDate = new Date();
+      var timeDifference = currentDate.getTime() - startDate.getTime();
+      var daysDifference = timeDifference / (1000 * 3600 * 24);
+      var weeksLeft = Math.floor(daysDifference / 7);
+
+      // Add beige circles to the first div
+      var firstDiv = document.getElementById('first-div');
+      for (var i = 0; i < weeksLeft; i++) {
+        var beigeCircle = document.createElement('div');
+        beigeCircle.classList.add('beige-circle');
+        beigeCircle.style.left = Math.random() * (firstDiv.offsetWidth - 5) + 'px';
+        beigeCircle.style.top = Math.random() * (firstDiv.offsetHeight - 5) + 'px';
+        firstDiv.appendChild(beigeCircle);
+      }
+
+      // Add black circles to the second div
+      var secondDiv = document.getElementById('second-div');
+      var totalBlackCircles = 4160 - weeksLeft;
+      var circlesPerRow = 20;
+      var rows = Math.ceil(totalBlackCircles / circlesPerRow);
+      for (var i = 0; i < rows; i++) {
+        var row = document.createElement('div');
+        row.classList.add('circle-row');
+        for (var j = 0; j < circlesPerRow; j++) {
+          if (totalBlackCircles > 0) {
+            var blackCircle = document.createElement('div');
+            blackCircle.classList.add('black-circle');
+            row.appendChild(blackCircle);
+            totalBlackCircles--;
+          }
+        }
+        secondDiv.appendChild(row);
+      }
+    });
+  </script>
+</body>
+</html>
