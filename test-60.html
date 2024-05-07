@@ -31,6 +31,14 @@
         width:100vw;
         font-family: 'PP';
     }
+    #remaining{
+        position:absolute;
+        bottom:4vh;
+        text-align:center;
+        width:100vw;
+        font-family:'pp';
+        font-size:2vw;
+    }
 </style>
 </head>
 <body>
@@ -64,6 +72,7 @@
                 circles[i].update();
                 circles[i].display();
             }
+            document.getElementById('remaining').innerText = `${4160-lilacCirclesCount}/4160 weeks remaining`;
         }
 
         class Circle {
@@ -96,6 +105,7 @@
         }
     </script>
     <div id="background-text">Hansi Zhu, born 1:40 PM <br>on October 22, 2003 <br>in Ridgewood, NJ</div>
+    <div id="remaining"></div>
 </div>
 </body>
 </html>

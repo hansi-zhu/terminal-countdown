@@ -24,12 +24,20 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        font-size: 8vw;
+        font-size: 7vw;
         color: rgb(0, 0, 0); /* Semi-transparent black color */
         z-index: 0; /* Set z-index to place it behind the canvas */
         text-align: center;
-        width:60vw;
+        width:100vw;
         font-family: 'PP';
+    }
+    #remaining{
+        position:absolute;
+        bottom:4vh;
+        text-align:center;
+        width:100vw;
+        font-family:'pp';
+        font-size:2vw;
     }
 </style>
 </head>
@@ -64,7 +72,7 @@
                 circles[i].update();
                 circles[i].display();
             }
-            document.getElementById('background-text').innerText = `${4160-lilacCirclesCount}/4160 weeks remaining`;
+            document.getElementById('background-text').innerText = `Hansi Zhu, born 1:40 PM on October 22, 2003 in Ridgewood, NJ has ${4160-lilacCirclesCount}/4160 weeks left`;
         }
 
         class Circle {
@@ -96,7 +104,8 @@
             }
         }
     </script>
-    <div id="background-text">0/4160 weeks remaining</div>
+    <div id="background-text">Hansi Zhu, born 1:40 PM <br>on October 22, 2003 <br>in Ridgewood, NJ</div>
+    <div id="remaining"></div>
 </div>
 </body>
 </html>
