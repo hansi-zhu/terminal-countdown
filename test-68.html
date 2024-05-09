@@ -107,13 +107,13 @@
             let remainingText;
             switch (clickCount) {
                 case 1:
-                    remainingText = `${calculateYearsLeft()}/80.0 years left`;
+                    remainingText = `${calculateYearsLeft()} years left`;
                     break;
                 case 2:
-                    remainingText = `${calculateDaysLeft()}/21715 days left`;
+                    remainingText = `${calculateDaysLeft()} days left`;
                     break;
                 default:
-                    remainingText = `${numCircles}/4160 weeks left`;
+                    remainingText = `${numCircles} weeks left`;
             }
             document.getElementById('background-text').innerText = remainingText;
         }
@@ -199,4 +199,8 @@
     updateTime();
 
     // Update the time every minute
-    setInterval
+    setInterval(updateTime, 60000);
+</script>
+
+</body>
+</html>
