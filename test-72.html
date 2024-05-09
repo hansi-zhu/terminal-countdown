@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terminal Countdown</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        height: 100%;
+        cursor: url("cursor.png"), auto;
+    }
+    @font-face {
+            font-family: PP;
+            src: url(fonts/PPEditorialNew-Regular.woff2);
+        }
+
+    #canvas-container {
+        position: relative;
+    }
+    #background-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 12vw;
+        line-height:96%;
+        color: rgb(0, 0, 0); /* Semi-transparent black color */
+        z-index: 0; /* Set z-index to place it behind the canvas */
+        text-align: center;
+        width:60vw;
+        font-family: 'PP';
+    }
+    #remaining, #source{
+        position:absolute;
+        text-align:center;
+        width:100vw;
+        font-family:'pp';
+    }
+    #remaining{
+        top:5vh;
+        font-size:2vw;
+    }
+    #source{
+        bottom:5vh;
+        font-size:2vw;
+    }
+    #arrow-left, #arrow-right{
+        position:absolute;
+        top:45%;
+        height:7vw;
+        width: 4vw;
+    }
+    #arrow-left{
+        left:3vw;
+        width: 0; 
+  height: 0; 
+  border-top: 3vw solid transparent;
+  border-bottom: 3vw solid transparent;
+  border-right: 3vw solid rgb(0, 0, 0);
+    }
+    #arrow-right{
+        right:3vw;
+        width: 0; 
+  height: 0; 
+  border-top: 3vw solid transparent;
+  border-bottom: 3vw solid transparent;
+  border-left: 3vw solid rgb(0, 0, 0);
+    }
+</style>
+</head>
+<body>
+    <div id="background-text">Hansi Zhu, born 1:40 PM <br>on October 22, 2003 <br>in Ridgewood, NJ</div>
+    <div id="remaining">Hansi Zhu, born 1:40 PM on October 22, 2003 in Ridgewood, NJ</div>
+    <div id="source"></div>
+
+
+<div id="canvas-container">
+    <script>
+        const circleSize = 10;
+        let circles = [];
+        const startDate = new Date('October 22, 2003');
+        const targetDate = new Date('October 22, 2083');
+        let clickCount = 0;
+
+        function setup() {
+            createCanvas(windowWidth, windowHeight).parent('canvas-container'); // Assign canvas to the container
+            colorMode(HSL, 360); // Use HSL color mode with hue range from 0 to 360
+
+            let numCircles;
+            switch (clickCount) {
+                case 1:
+                    numCircles = calculateYearsLeft();
+                    break;
+                case 2:
+                    numCircles = calculateDaysLeft();
+                    break;
+                default:
+                    numCircles = 4160; // Default number of circles
+            }
+
+            circles = []; // Clear circles array
+            for (let i = 0; i < numCircles; i++) {
+                let x = random(width);
+                let y = random(height);
+                let vx = random(-2, 2); // Random initial velocity in x-direction
+                let vy = random(-2, 2); // Random initial velocity in y-direction
+                let circle = new Circle(x, y, vx, vy);
+                circles.push(circle);
+            }
+            updateBackgroundText();
+        }
+
+        function draw() {
+            clear(); // Clear canvas
+            for (let i = 0; i < circles.length; i++) {
+                circles[i].update();
+                circles[i].display();
+            }
+        }
+
+        function updateBackgroundText() {
+            let remainingText;
+            switch (clickCount) {
+                case 1:
+                    remainingText = `${calculateYearsLeft()}/80.00 years left`;
+                    break;
+                case 2:
+                    remainingText = `${calculateDaysLeft()}/29220 days left`;
+                    break;
+                default:
+                    remainingText = `${calculateWeeksLeft()}/4160 weeks left`;
+            }
+            document.getElementById('background-text').innerText = remainingText;
+        }
+
+        function calculateWeeksLeft() {
+            const currentDate = new Date();
+            const weeksSinceStart = Math.floor((currentDate - startDate) / (1000 * 60 * 60 * 24 * 7));
+            return 4160-weeksSinceStart;
+        }
+
+        function calculateYearsLeft() {
+            const currentDate = new Date();
+            const remainingYears = (targetDate - currentDate) / (1000 * 60 * 60 * 24 * 365.25);
+            return remainingYears.toFixed(2);
+        }
+
+        function calculateDaysLeft() {
+            const currentDate = new Date();
+            const remainingDays = Math.floor((targetDate - currentDate) / (1000 * 60 * 60 * 24));
+            return remainingDays;
+        }
+
+        class Circle {
+            constructor(x, y, vx, vy) {
+                this.x = x;
+                this.y = y;
+                this.vx = vx;
+                this.vy = vy;
+                this.size = circleSize;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // Bounce off window boundaries
+                if (this.x + this.size / 2 >= width || this.x - this.size / 2 <= 0) {
+                    this.vx *= -1;
+                }
+                if (this.y + this.size / 2 >= height || this.y - this.size / 2 <= 0) {
+                    this.vy *= -1;
+                }
+            }
+
+            display() {
+                fill(30, 80, 0); // Lighter lilac color (hue = 270, lightness = 80)
+                noStroke();
+                ellipse(this.x, this.y, this.size, this.size);
+            }
+        }
+
+        function mouseClicked() {
+            if (mouseX < width) {
+                clickCount++;
+                if (clickCount > 2) clickCount = 0;
+
+                // Redraw canvas and update background text
+                setup();
+            }
+        }
+    </script>
+    <div id="background-text"></div>
+</div>
+
+
+<script>
+    function updateTime() {
+        const currentDate = new Date();
+        const hours = currentDate.getHours();
+        const minutes = currentDate.getMinutes();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        const formattedHours = hours % 12 || 12; // Convert hours to 12-hour format
+        const formattedMinutes = minutes < 10 ? '0' + minutes : minutes; // Add leading zero if minutes < 10
+        const timeString = formattedHours + ':' + formattedMinutes + ' ' + ampm;
+
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        const month = months[currentDate.getMonth()];
+        const day = currentDate.getDate();
+        const year = currentDate.getFullYear();
+        const dateString = month + ' ' + day + ', ' + year;
+
+        const sourceElement = document.getElementById('source');
+        sourceElement.textContent = timeString + ' — ' + dateString;
+    }
+
+    // Call updateTime once to initialize the time
+    updateTime();
+
+    // Update the time every minute
+    setInterval(updateTime, 60000);
+</script>
+
+</body>
+</html>
