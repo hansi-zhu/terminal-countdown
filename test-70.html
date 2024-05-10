@@ -191,6 +191,10 @@
 
                 // Redraw canvas and update background text
                 setup();
+            } else{
+                clickCount--;
+                if (clickCount < 0) clickCount = 2;
+                setup();
             }
         }
     </script>
